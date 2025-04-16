@@ -20,7 +20,6 @@
     async function getweatherData(City) {
       const apiurl = `https://api.openweathermap.org/data/2.5/weather?q=${City}&appid=${apikey}`;
       const response = await fetch(apiurl);
-      console.log(response);
       if (!response.ok) {
         throw new Error("could not fetch weather data");
       }

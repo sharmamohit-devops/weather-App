@@ -1,145 +1,296 @@
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(90deg, #fbabd3, #81cfff);
-    font-family: 'Arial', sans-serif;
-    height: 100vh;
-    margin: 0;
-    overflow: hidden;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+  background-size: 400% 400%;
+  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  animation: gradientBG 15s ease infinite;
+}
 
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.WeatherForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.5s ease;
+  z-index: 10;
+}
+
+.WeatherForm:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.CityInput {
+  width: 250px;
+  height: 40px;
+  margin-bottom: 15px;
+  border-radius: 30px;
+  border: none;
+  padding-left: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.CityInput:focus {
+  background: rgba(255, 255, 255, 0.95);
+  outline: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+button {
+  height: 45px;
+  width: 160px;
+  font-weight: 700;
+  background: linear-gradient(45deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  margin-top: 20px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(45deg, #3a7bd5 0%, #00d2ff 100%);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+
+button:hover::after {
+  transform: translateX(100%);
+}
+
+.Card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 380px;
+  height: 500px;
+  background: linear-gradient(135deg, rgba(119, 221, 255, 0.8), rgba(144, 238, 144, 0.8));
+  border-radius: 25px;
+  margin-top: 20px;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  transform: translateY(30px) rotate(3deg);
+  animation: fadeInUp 0.7s forwards;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.Card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+      to bottom right,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.1) 45%,
+      rgba(255,255,255,0.1) 55%,
+      rgba(255,255,255,0) 100%
+  );
+  transform: rotate(30deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(30deg); }
+  100% { transform: translateX(100%) rotate(30deg); }
+}
+
+.Card:hover {
+  transform: scale(1.03) rotate(-1deg);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+}
+
+.CityDisplay {
+  font-weight: 900;
+  font-size: 2.5rem;
+  margin-top: 30px;
+  color: #333;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  animation: textGlow 2s infinite alternate;
+}
+
+@keyframes textGlow {
+  from { text-shadow: 0 0 5px rgba(255,255,255,0.5); }
+  to { text-shadow: 0 0 15px rgba(255,255,255,0.8); }
+}
+
+.tempDisplay {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-top: 15px;
+  color: #444;
+  transition: all 0.3s ease;
+}
+
+.tempDisplay:hover {
+  transform: scale(1.1);
+}
+
+.humidityDisplay {
+  font-size: 18px;
+  margin-top: 15px;
+  color: #555;
+  background: rgba(255,255,255,0.3);
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.humidityDisplay:hover {
+  background: rgba(255,255,255,0.5);
+  transform: translateY(-3px);
+}
+
+.descDisplay {
+  font-style: italic;
+  font-size: 24px;
+  margin-top: 25px;
+  color: #333;
+  text-transform: capitalize;
+  position: relative;
+}
+
+.descDisplay::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 3px;
+}
+
+.weatherEmoji {
+  font-size: 120px;
+  margin-top: -20px;
+  margin-bottom: -30px;
+  transition: all 0.5s ease;
+  filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+.errorDisplay {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ff4757;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-10px); }
+  40%, 80% { transform: translateX(10px); }
+}
+
+/* Floating bubbles background */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  animation: floatBubble 15s infinite linear;
+  z-index: -1;
+}
+
+@keyframes floatBubble {
+  0% { 
+      transform: translateY(0) translateX(0) rotate(0deg);
+      opacity: 0;
+  }
+  10% { opacity: 0.5; }
+  100% { 
+      transform: translateY(-1000px) translateX(200px) rotate(720deg);
+      opacity: 0;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 500px) {
   .WeatherForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 50px;
+      width: 90%;
+      padding: 20px;
   }
-
-  .CityInput {
-    width: 200px;
-    height: 35px;
-    margin-bottom: 10px;
-    border-radius: 30px;
-    border: 2px solid gray;
-    padding-left: 15px;
-    font-weight: 700;
-    font-size: 15px;
-    transition: border-color 0.3s;
-  }
-
-  .CityInput:focus {
-    border-color: #81cfff;
-    outline: none;
-  }
-
-  button {
-    height: 40px;
-    width: 150px;
-    font-weight: 700;
-    background-color: rgb(97, 240, 97);
-    color: white;
-    margin-top: 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-
-  button:hover {
-    background-color: rgb(80, 200, 80);
-    transform: scale(1.05);
-  }
-
+  
   .Card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 350px;
-    height: 450px;
-    background: linear-gradient(100deg, rgb(119, 221, 255), lightgreen);
-    border-radius: 15px;
-    margin-top: 15px;
-    transition: transform 0.3s, box-shadow 0.3s, opacity 0.3s;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
-    cursor: pointer;
-  }
-
-  .Card:hover {
-    box-shadow: 5px 5px 25px grey;
-    transform: scale(1.02);
+      width: 90%;
+      height: 480px;
   }
 
   .CityDisplay {
-    font-weight: 900;
-    font-size: 2rem;
-    margin-top: 20px;
+      font-size: 2rem;
   }
 
   .tempDisplay {
-    font-size: 2rem;
-    font-weight: 600;
-    margin-top: 10px;
-  }
-
-  .humidityDisplay {
-    font-size: 15px;
-    margin-top: 10px;
-  }
-
-  .descDisplay {
-    font-style: italic;
-    font-size: 20px;
-    margin-top: 20px;
+      font-size: 2.5rem;
   }
 
   .weatherEmoji {
-    font-size: 150px;
-    margin-top: -8px;
+      font-size: 120px;
   }
+}
 
-  .errorDisplay {
-    font-size: 2.5rem;
-    font-weight: bold;
-    color: black;
-  }
-
-  @keyframes fadeInUp {
-    to {
+@keyframes fadeInUp {
+  to {
       opacity: 1;
-      transform: translateY(0);
-    }
+      transform: translateY(0) rotate(0deg);
   }
-
-  @media (max-width: 400px) {
-    .Card {
-      width: 300px;
-      height: 400px;
-    }
-
-    .CityDisplay {
-      font-size: 1.5rem;
-    }
-
-    .tempDisplay {
-      font-size: 1.5rem;
-    }
-
-    .humidityDisplay {
-      font-size: 1rem;
-    }
-
-    .descDisplay {
-      font-size: 1.5rem;
-    }
-
-    .weatherEmoji {
-      font-size: 100px;
-      margin-top: 15px;
-    }
-  }
+}

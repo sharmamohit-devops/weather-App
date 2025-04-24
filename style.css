@@ -285,6 +285,7 @@ button:hover::after {
 
   .weatherEmoji {
       font-size: 120px;
+      margin-top:10px;
   }
 }
 
